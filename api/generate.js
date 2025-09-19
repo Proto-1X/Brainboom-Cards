@@ -30,8 +30,8 @@ export default async function handler(req, res) {
       // cfg_scale, steps, samples etc — tune as needed
       cfg_scale: 7,
       clip_guidance_preset: 'NONE',
-      height: 512,
-      width: 512,
+      height: 1024,
+      width: 1024,
       samples: 1
     };
 
