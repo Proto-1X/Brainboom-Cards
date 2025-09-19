@@ -1,73 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Brainboom X</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    #promptInput {
+      width: 300px;
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      border: 2px solid #333;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #333;
+      color: white;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background-color: #555;
+    }
+    #imageContainer {
+      margin-top: 20px;
+      max-width: 500px;
+    }
+    #imageContainer img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Brainboom X</h1>
-    <p class="tagline">Where brain meets creativity</p>
-  </header>
+  <h1>Brainboom X</h1>
+  <input type="text" id="promptInput" placeholder="Enter your idea..."/>
+  <button onclick="handleGenerate()">Generate Image</button>
+  
+  <div id="imageContainer"></div>
 
-  <main>
-    <section class="left-column">
-      <div class="category" data-category="animal">
-        <h2>Animals</h2>
-        <div class="cards">
-          <div class="card" data-value="lion" onclick="selectCard(this)"><img src="imagesbbx/lion.jpg" alt="Lion"><span>Lion</span></div>
-          <div class="card" data-value="elephant" onclick="selectCard(this)"><img src="imagesbbx/elephant.jpg" alt="Elephant"><span>Elephant</span></div>
-          <div class="card" data-value="dog" onclick="selectCard(this)"><img src="imagesbbx/dog.jpg" alt="Dog"><span>Dog</span></div>
-          <div class="card" data-value="cat" onclick="selectCard(this)"><img src="imagesbbx/cat.jpg" alt="Cat"><span>Cat</span></div>
-          <div class="card" data-value="tiger" onclick="selectCard(this)"><img src="imagesbbx/tiger.jpg" alt="Tiger"><span>Tiger</span></div>
-        </div>
-      </div>
+  <script>
+    async function handleGenerate() {
+      const prompt = document.getElementById("promptInput").value.trim();
+      if (!prompt) {
+        alert("Please type something!");
+        return;
+      }
 
-      <div class="category" data-category="object">
-        <h2>Objects</h2>
-        <div class="cards">
-          <div class="card" data-value="chair" onclick="selectCard(this)"><img src="imagesbbx/chair.jpg" alt="Chair"><span>Chair</span></div>
-          <div class="card" data-value="table" onclick="selectCard(this)"><img src="imagesbbx/table.jpg" alt="Table"><span>Table</span></div>
-          <div class="card" data-value="book" onclick="selectCard(this)"><img src="imagesbbx/book.jpg" alt="Book"><span>Book</span></div>
-          <div class="card" data-value="pencil" onclick="selectCard(this)"><img src="imagesbbx/pencil.jpg" alt="Pencil"><span>Pencil</span></div>
-          <div class="card" data-value="bag" onclick="selectCard(this)"><img src="imagesbbx/bag.jpg" alt="Bag"><span>Bag</span></div>
-        </div>
-      </div>
+      const button = document.querySelector("button");
+      button.disabled = true;
+      button.textContent = "Generating...";
 
-      <div class="category" data-category="clothes">
-        <h2>Clothes</h2>
-        <div class="cards">
-          <div class="card" data-value="shirt" onclick="selectCard(this)"><img src="imagesbbx/shirt.jpg" alt="Shirt"><span>Shirt</span></div>
-          <div class="card" data-value="pants" onclick="selectCard(this)"><img src="imagesbbx/pants.jpg" alt="Pants"><span>Pants</span></div>
-          <div class="card" data-value="dress" onclick="selectCard(this)"><img src="imagesbbx/dress.jpg" alt="Dress"><span>Dress</span></div>
-          <div class="card" data-value="hat" onclick="selectCard(this)"><img src="imagesbbx/hat.jpg" alt="Hat"><span>Hat</span></div>
-        </div>
-      </div>
-    </section>
+      try {
+        const response = await fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt }),
+        });
 
-    <section class="right-column">
-      <div class="whiteboard">
-        <h2>Your Whiteboard</h2>
-        <p id="instruction">Write a simple sentence using one of the words.</p>
-        <textarea id="sentence" placeholder="Example: The lion sits on the chair."></textarea>
-        <div class="controls">
-          <button onclick="newInstruction()">🎲 New task</button>
-          <button onclick="clearSelections()">✖ Reset selections</button>
-        </div>
-      </div>
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText);
+        }
 
-      <div class="combo-result">
-        <h3>Your Combo Image</h3>
-        <div id="comboArea">
-          <img id="comboImage" src="" alt="Combo result" style="display:none;">
-          <p id="comboMessage" class="fun-message">Select one card from each category to generate an image.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+        const data = await response.json();
+        const img = document.createElement("img");
+        img.src = data.imageUrl;
+        document.getElementById("imageContainer").innerHTML = "";
+        document.getElementById("imageContainer").appendChild(img);
+      } catch (err) {
+        alert("Error: " + err.message);
+      } finally {
+        button.disabled = false;
+        button.textContent = "Generate Image";
+      }
+    }
+  </script>
 </body>
 </html>
