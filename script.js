@@ -38,7 +38,7 @@ async function showCombo() {
     const response = await fetch("https://api.stability.ai/v2beta/stable-image/generate/core", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer YOUR_API_KEY_HERE`,
+        "Authorization": `Bearer sk-RVLlTlmjJUsITgTukbfGJSLhiPahV5HbqU1ok9HXKgSuRAD0`,
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
