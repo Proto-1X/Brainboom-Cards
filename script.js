@@ -4,59 +4,62 @@ let selections = {
   clothes: null
 };
 
-function selectCard(card, name) {
-  const category = card.closest(".category").dataset.category;
+// Handle card clicks
+document.querySelectorAll(".card").forEach(card => {
+  card.addEventListener("click", () => {
+    const category = card.dataset.category;
+    const value = card.dataset.value;
 
-  // Reset old selection in this category
-  const cards = card.closest(".category").querySelectorAll(".card");
-  cards.forEach(c => c.classList.remove("selected"));
+    // Remove previous selection in same category
+    document.querySelectorAll(`.card[data-category="${category}"]`)
+      .forEach(c => c.classList.remove("selected"));
 
-  // Set new selection
-  card.classList.add("selected");
-  selections[category] = name;
+    card.classList.add("selected");
+    selections[category] = value;
 
-  // Check if all categories are chosen
-  if (selections.animal && selections.object && selections.clothes) {
-    showCombo();
-  }
-}
+    // If all selected, show combo
+    if (selections.animal && selections.object && selections.clothes) {
+      showCombo();
+    }
+  });
+});
 
-function showCombo() {
-  const comboName = `${selections.animal}_${selections.object}_${selections.clothes}`;
-  const comboPath = `combos/${comboName}.jpg`;
+// Generate combo image using Stability AI
+async function showCombo() {
+  const prompt = `A ${selections.animal} with a ${selections.object} wearing a ${selections.clothes}, cartoon style for kids`;
 
   const comboImage = document.getElementById("comboImage");
   const message = document.getElementById("comboMessage");
 
-  comboImage.src = comboPath;
+  message.innerText = "✨ Generating your BrainBoom image... please wait!";
+  comboImage.style.display = "none";
 
-  comboImage.onerror = function () {
-    comboImage.style.display = "none";
-    const funPhrases = [
-      "Oops! That combo is still cooking in the Brain Kitchen 🍳🧠",
-      "Hmm… looks like that combo is hiding! 🔍",
-      "That mix is too silly even for us 😂",
-      "Try another combo — this one flew away 🐦"
-    ];
-    const randomPhrase = funPhrases[Math.floor(Math.random() * funPhrases.length)];
-    message.innerText = randomPhrase;
-  };
+  try {
+    const response = await fetch("https://api.stability.ai/v2beta/stable-image/generate/core", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer YOUR_API_KEY_HERE`,
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+        output_format: "png"
+      })
+    });
 
-  comboImage.onload = function () {
+    if (!response.ok) {
+      throw new Error("Failed to generate image");
+    }
+
+    const data = await response.json();
+    const imageBase64 = data.image; // base64 string
+    comboImage.src = "data:image/png;base64," + imageBase64;
+
     comboImage.style.display = "block";
     message.innerText = "";
-  };
-}
-
-const instructions = [
-  "Write a simple sentence using one of the words.",
-  "Make a sentence with an adjective.",
-  "Create a sentence with a preposition.",
-  "Write a sentence using two words from the cards.",
-  "Make a question with one of the words."
-];
-
-function newInstruction() {
-  const randomIndex = Math.floor(Math.random() * instructions.length);
-  document.getElementById("instruction").innerText = instructions[randomIndex];
+  } catch (error) {
+    console.error(error);
+    message.innerText = "⚠️ Oops! Image generation failed. Try again!";
+  }
 }
