@@ -44,7 +44,7 @@ function newInstruction() {
 
 // --- IMAGE GENERATION (call backend) ---
 // Replace with your Vercel deployment URL (no trailing slash), e.g. "https://brainboom-api.vercel.app"
-const VERCEL_BACKEND_URL = "https://YOUR_VERCEL_URL.vercel.app";
+const VERCEL_BACKEND_URL = "https://brainboom-cards.vercel.app/";
 
 async function showCombo() {
   const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animal} with a ${selections.object} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
