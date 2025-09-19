@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brainboom X</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>BRAINBOOM X</h1>
+    <p class="tagline">Where Brain Meets Creativity</p>
+  </header>
+
+  <main>
+    <div class="categories">
+      <!-- Animals -->
+      <div class="category" data-category="animal">
+        <h2>Animals</h2>
+        <div class="cards">
+          <div class="card" onclick="selectCard(this, 'lion')">
+            <img src="imagesbbx/lion.jpg" alt="Lion"><p>Lion</p>
+          </div>
+          <div class="card" onclick="selectCard(this, 'elephant')">
+            <img src="imagesbbx/elephant.jpg" alt="Elephant"><p>Elephant</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objects -->
+      <div class="category" data-category="object">
+        <h2>Objects</h2>
+        <div class="cards">
+          <div class="card" onclick="selectCard(this, 'chair')">
+            <img src="imagesbbx/chair.jpg" alt="Chair"><p>Chair</p>
+          </div>
+          <div class="card" onclick="selectCard(this, 'book')">
+            <img src="imagesbbx/book.jpg" alt="Book"><p>Book</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clothes -->
+      <div class="category" data-category="clothes">
+        <h2>Clothes</h2>
+        <div class="cards">
+          <div class="card" onclick="selectCard(this, 'hat')">
+            <img src="imagesbbx/hat.jpg" alt="Hat"><p>Hat</p>
+          </div>
+          <div class="card" onclick="selectCard(this, 'shirt')">
+            <img src="imagesbbx/shirt.jpg" alt="Shirt"><p>Shirt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Whiteboard & Combo -->
+    <div class="workspace">
+      <div class="whiteboard">
+        <h2>Your Whiteboard</h2>
+        <p id="instruction">Write a simple sentence using one of the words.</p>
+        <textarea placeholder="Type your sentence here..."></textarea>
+        <button onclick="newInstruction()">New Task</button>
+      </div>
+
+      <div class="combo-result">
+        <h3>Your Combo Image</h3>
+        <img id="comboImage" src="" alt="Combo will appear here">
+        <p id="comboMessage" class="fun-message"></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
