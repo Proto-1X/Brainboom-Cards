@@ -1,45 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BrainBoom X</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Brainboom X</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>🧠 BrainBoom X</h1>
-    <p>Pick one card from each category and watch your combo come alive!</p>
+    <h1>Brainboom X</h1>
+    <p class="tagline">Where brain meets creativity</p>
   </header>
 
   <main>
-    <section class="cards">
-      <h2>🐾 Animals</h2>
-      <div class="card-grid" id="animalCards">
-        <div class="card" data-category="animal" data-value="lion">🦁 Lion</div>
-        <div class="card" data-category="animal" data-value="elephant">🐘 Elephant</div>
-        <div class="card" data-category="animal" data-value="cat">🐱 Cat</div>
+    <section class="left-column">
+      <div class="category" data-category="animal">
+        <h2>Animals</h2>
+        <div class="cards">
+          <div class="card" data-value="lion" onclick="selectCard(this)"><img src="imagesbbx/lion.jpg" alt="Lion"><span>Lion</span></div>
+          <div class="card" data-value="elephant" onclick="selectCard(this)"><img src="imagesbbx/elephant.jpg" alt="Elephant"><span>Elephant</span></div>
+          <div class="card" data-value="dog" onclick="selectCard(this)"><img src="imagesbbx/dog.jpg" alt="Dog"><span>Dog</span></div>
+          <div class="card" data-value="cat" onclick="selectCard(this)"><img src="imagesbbx/cat.jpg" alt="Cat"><span>Cat</span></div>
+          <div class="card" data-value="tiger" onclick="selectCard(this)"><img src="imagesbbx/tiger.jpg" alt="Tiger"><span>Tiger</span></div>
+        </div>
       </div>
 
-      <h2>🎲 Objects</h2>
-      <div class="card-grid" id="objectCards">
-        <div class="card" data-category="object" data-value="chair">🪑 Chair</div>
-        <div class="card" data-category="object" data-value="car">🚗 Car</div>
-        <div class="card" data-category="object" data-value="ball">⚽ Ball</div>
+      <div class="category" data-category="object">
+        <h2>Objects</h2>
+        <div class="cards">
+          <div class="card" data-value="chair" onclick="selectCard(this)"><img src="imagesbbx/chair.jpg" alt="Chair"><span>Chair</span></div>
+          <div class="card" data-value="table" onclick="selectCard(this)"><img src="imagesbbx/table.jpg" alt="Table"><span>Table</span></div>
+          <div class="card" data-value="book" onclick="selectCard(this)"><img src="imagesbbx/book.jpg" alt="Book"><span>Book</span></div>
+          <div class="card" data-value="pencil" onclick="selectCard(this)"><img src="imagesbbx/pencil.jpg" alt="Pencil"><span>Pencil</span></div>
+          <div class="card" data-value="bag" onclick="selectCard(this)"><img src="imagesbbx/bag.jpg" alt="Bag"><span>Bag</span></div>
+        </div>
       </div>
 
-      <h2>👕 Clothes</h2>
-      <div class="card-grid" id="clothesCards">
-        <div class="card" data-category="clothes" data-value="hat">🎩 Hat</div>
-        <div class="card" data-category="clothes" data-value="scarf">🧣 Scarf</div>
-        <div class="card" data-category="clothes" data-value="shoes">👟 Shoes</div>
+      <div class="category" data-category="clothes">
+        <h2>Clothes</h2>
+        <div class="cards">
+          <div class="card" data-value="shirt" onclick="selectCard(this)"><img src="imagesbbx/shirt.jpg" alt="Shirt"><span>Shirt</span></div>
+          <div class="card" data-value="pants" onclick="selectCard(this)"><img src="imagesbbx/pants.jpg" alt="Pants"><span>Pants</span></div>
+          <div class="card" data-value="dress" onclick="selectCard(this)"><img src="imagesbbx/dress.jpg" alt="Dress"><span>Dress</span></div>
+          <div class="card" data-value="hat" onclick="selectCard(this)"><img src="imagesbbx/hat.jpg" alt="Hat"><span>Hat</span></div>
+        </div>
       </div>
     </section>
 
-    <section class="whiteboard">
-      <h2>🎨 Your Combo Result</h2>
-      <p id="comboMessage">Select one from each category to generate!</p>
-      <img id="comboImage" src="" alt="Combo Result" style="display:none;">
+    <section class="right-column">
+      <div class="whiteboard">
+        <h2>Your Whiteboard</h2>
+        <p id="instruction">Write a simple sentence using one of the words.</p>
+        <textarea id="sentence" placeholder="Example: The lion sits on the chair."></textarea>
+        <div class="controls">
+          <button onclick="newInstruction()">🎲 New task</button>
+          <button onclick="clearSelections()">✖ Reset selections</button>
+        </div>
+      </div>
+
+      <div class="combo-result">
+        <h3>Your Combo Image</h3>
+        <div id="comboArea">
+          <img id="comboImage" src="" alt="Combo result" style="display:none;">
+          <p id="comboMessage" class="fun-message">Select one card from each category to generate an image.</p>
+        </div>
+      </div>
     </section>
   </main>
 
