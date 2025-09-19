@@ -1,65 +1,102 @@
-let selections = {
-  animal: null,
-  object: null,
-  clothes: null
-};
+// front-end selection state
+const selections = { animal: null, object: null, clothes: null };
 
-// Handle card clicks
-document.querySelectorAll(".card").forEach(card => {
-  card.addEventListener("click", () => {
-    const category = card.dataset.category;
-    const value = card.dataset.value;
+// initial task instructions
+const instructions = [
+  "Write a simple sentence using one of the words.",
+  "Make a sentence with an adjective.",
+  "Create a sentence with a preposition.",
+  "Write a sentence using two words from the cards.",
+  "Make a question with one of the words."
+];
 
-    // Remove previous selection in same category
-    document.querySelectorAll(`.card[data-category="${category}"]`)
-      .forEach(c => c.classList.remove("selected"));
+// Helper: when card clicked
+function selectCard(el) {
+  const categoryEl = el.closest('.category');
+  const category = categoryEl.dataset.category;
+  const value = el.dataset.value;
 
-    card.classList.add("selected");
-    selections[category] = value;
+  // remove selected class from other cards in same category
+  categoryEl.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
 
-    // If all selected, show combo
-    if (selections.animal && selections.object && selections.clothes) {
-      showCombo();
-    }
-  });
-});
+  // mark this selected
+  el.classList.add('selected');
+  selections[category] = value;
 
-// Generate combo image using Stability AI
-async function showCombo() {
-  const prompt = `A ${selections.animal} with a ${selections.object} wearing a ${selections.clothes}, cartoon style for kids`;
-
-  const comboImage = document.getElementById("comboImage");
-  const message = document.getElementById("comboMessage");
-
-  message.innerText = "✨ Generating your BrainBoom image... please wait!";
-  comboImage.style.display = "none";
-
-  try {
-    const response = await fetch("https://api.stability.ai/v2beta/stable-image/generate/core", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer sk-RVLlTlmjJUsITgTukbfGJSLhiPahV5HbqU1ok9HXKgSuRAD0`,
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        prompt: prompt,
-        output_format: "png"
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to generate image");
-    }
-
-    const data = await response.json();
-    const imageBase64 = data.image; // base64 string
-    comboImage.src = "data:image/png;base64," + imageBase64;
-
-    comboImage.style.display = "block";
-    message.innerText = "";
-  } catch (error) {
-    console.error(error);
-    message.innerText = "⚠️ Oops! Image generation failed. Try again!";
+  // once we have all three selections, generate image
+  if (selections.animal && selections.object && selections.clothes) {
+    showCombo();
   }
 }
+
+function clearSelections() {
+  document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+  selections.animal = selections.object = selections.clothes = null;
+  document.getElementById('comboImage').style.display = 'none';
+  document.getElementById('comboMessage').innerText = 'Select one card from each category to generate an image.';
+}
+
+// random instruction
+function newInstruction() {
+  const i = Math.floor(Math.random() * instructions.length);
+  document.getElementById('instruction').innerText = instructions[i];
+}
+
+// --- IMAGE GENERATION (call backend) ---
+// Replace with your Vercel deployment URL (no trailing slash), e.g. "https://brainboom-api.vercel.app"
+const VERCEL_BACKEND_URL = "https://YOUR_VERCEL_URL.vercel.app";
+
+async function showCombo() {
+  const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animal} with a ${selections.object} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
+
+  const comboImage = document.getElementById('comboImage');
+  const comboMessage = document.getElementById('comboMessage');
+
+  comboMessage.innerText = "✨ Generating your BrainBoom image... please wait!";
+  comboImage.style.display = 'none';
+
+  try {
+    const resp = await fetch(`${VERCEL_BACKEND_URL}/api/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
+
+    if (!resp.ok) {
+      const err = await resp.text();
+      console.error('Backend error:', err);
+      comboMessage.innerText = "⚠️ Oops! The Brain Kitchen is busy. Try again in a bit.";
+      return;
+    }
+
+    const data = await resp.json();
+
+    if (data.error) {
+      console.error('API returned error', data);
+      comboMessage.innerText = "⚠️ Oops! The Brain Kitchen couldn't cook that one.";
+      return;
+    }
+
+    // Stability returns base64(s) inside response. We expect data.artifacts[0].base64 or similar.
+    // Backend will normalize and return { imageBase64: "..." }
+    const base64 = data.imageBase64 || data.base64 || (data.artifacts && data.artifacts[0] && data.artifacts[0].base64);
+
+    if (!base64) {
+      console.error('No base64 in response', data);
+      comboMessage.innerText = "⚠️ No image was returned. Try again.";
+      return;
+    }
+
+    comboImage.src = "data:image/png;base64," + base64;
+    comboImage.style.display = 'block';
+    comboMessage.innerText = "";
+  } catch (e) {
+    console.error('Fetch error', e);
+    comboMessage.innerText = "⚠️ Network hiccup — try again.";
+  }
+}
+
+// expose helper to global scope for inline onclick handlers
+window.selectCard = selectCard;
+window.newInstruction = newInstruction;
+window.clearSelections = clearSelections;
