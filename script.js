@@ -56,7 +56,7 @@ async function showCombo() {
   comboImage.style.display = 'none';
 
   try {
-    const resp = await fetch(`${VERCEL_BACKEND_URL}/api/generate`, {
+    const resp = await fetch(`https://brainboom-cards.vercel.app/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt })
