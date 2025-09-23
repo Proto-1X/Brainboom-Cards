@@ -1,5 +1,5 @@
 // front-end selection state
-const selections = { animal: null, object: null, clothes: null };
+const selections = { bodyparts: null, animals: null, clothes: null };
 
 // initial task instructions
 const instructions = [
@@ -24,14 +24,14 @@ function selectCard(el) {
   selections[category] = value;
 
   // once we have all three selections, generate image
-  if (selections.animal && selections.object && selections.clothes) {
+  if (selections.bodyparts && selections.animals && selections.clothes) {
     showCombo();
   }
 }
 
 function clearSelections() {
   document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
-  selections.animal = selections.object = selections.clothes = null;
+  selections.bodyparts = selections.animals = selections.clothes = null;
   document.getElementById('comboImage').style.display = 'none';
   document.getElementById('comboMessage').innerText = 'Select one card from each category to generate an image.';
 }
@@ -47,7 +47,7 @@ function newInstruction() {
 const VERCEL_BACKEND_URL = "https://brainboom-cards.vercel.app/";
 
 async function showCombo() {
-  const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animal} with a ${selections.object} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
+  const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animals} with a ${selections.bodyparts} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
 
   const comboImage = document.getElementById('comboImage');
   const comboMessage = document.getElementById('comboMessage');
