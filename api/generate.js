@@ -24,8 +24,9 @@ export default async function handler(req, res) {
           text_prompts: [{ text: prompt }],
           cfg_scale: 7,
           clip_guidance_preset: "FAST_BLUE",
-          samples: 1,
-          steps: 30,
+          height: 1024,      // ✅ image height
+          width: 1024,       // ✅ image width
+          samples: 1
         }),
       }
     );
