@@ -1,5 +1,5 @@
 // front-end selection state
-const selections = { bodyparts: null, animals: null, clothes: null };
+const selections = { animal: null, bodyparts: null, clothes: null };
 
 // initial task instructions
 const instructions = [
@@ -8,6 +8,26 @@ const instructions = [
   "Create a sentence with a preposition.",
   "Write a sentence using two words from the cards.",
   "Make a question with one of the words."
+];
+
+// fun catchphrases for loading
+const loadingMessages = [
+  "🧠 Stirring up ideas in the Brain Kitchen...",
+  "🎨 Mixing colors and creativity...",
+  "✨ Cooking up your masterpiece...",
+  "⚡ Charging imagination batteries...",
+  "🪄 Conjuring your magical combo...",
+  "🚀 Launching creativity rocket...",
+  "🎉 Almost there... your picture is being born!"
+];
+
+// playful error messages
+const errorMessages = [
+  "😵 Oops, the Brain Machine sneezed. Try again!",
+  "🐢 The creativity turtle is too slow today. Retry?",
+  "🛠️ Our imagination gears got stuck. Give it another go!",
+  "🌧️ Rain in the idea factory... wait and try again!",
+  "🔥 Too much brain power at once! Please retry."
 ];
 
 // Helper: when card clicked
@@ -24,14 +44,14 @@ function selectCard(el) {
   selections[category] = value;
 
   // once we have all three selections, generate image
-  if (selections.bodyparts && selections.animals && selections.clothes) {
+  if (selections.animal && selections.bodyparts && selections.clothes) {
     showCombo();
   }
 }
 
 function clearSelections() {
   document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
-  selections.bodyparts = selections.animals = selections.clothes = null;
+  selections.animal = selections.bodyparts = selections.clothes = null;
   document.getElementById('comboImage').style.display = 'none';
   document.getElementById('comboMessage').innerText = 'Select one card from each category to generate an image.';
 }
@@ -43,20 +63,20 @@ function newInstruction() {
 }
 
 // --- IMAGE GENERATION (call backend) ---
-// Replace with your Vercel deployment URL (no trailing slash), e.g. "https://brainboom-api.vercel.app"
-const VERCEL_BACKEND_URL = "https://brainboom-cards.vercel.app/";
+const VERCEL_BACKEND_URL = "https://brainboom-cards.vercel.app";
 
 async function showCombo() {
-  const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animals} with a ${selections.bodyparts} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
+  const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animal} with a ${selections.bodyparts} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
 
   const comboImage = document.getElementById('comboImage');
   const comboMessage = document.getElementById('comboMessage');
 
-  comboMessage.innerText = "✨ Generating your BrainBoom image... please wait!";
+  // fun loading message
+  comboMessage.innerText = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
   comboImage.style.display = 'none';
 
   try {
-    const resp = await fetch('/api/generate', {
+    const resp = await fetch(`https://brainboom-cards.vercel.app/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt })
@@ -65,7 +85,7 @@ async function showCombo() {
     if (!resp.ok) {
       const err = await resp.text();
       console.error('Backend error:', err);
-      comboMessage.innerText = "⚠️ Oops! The Brain Kitchen is busy. Try again in a bit.";
+      comboMessage.innerText = errorMessages[Math.floor(Math.random() * errorMessages.length)];
       return;
     }
 
@@ -73,17 +93,15 @@ async function showCombo() {
 
     if (data.error) {
       console.error('API returned error', data);
-      comboMessage.innerText = "⚠️ Oops! The Brain Kitchen couldn't cook that one.";
+      comboMessage.innerText = errorMessages[Math.floor(Math.random() * errorMessages.length)];
       return;
     }
 
-    // Stability returns base64(s) inside response. We expect data.artifacts[0].base64 or similar.
-    // Backend will normalize and return { imageBase64: "..." }
     const base64 = data.imageBase64 || data.base64 || (data.artifacts && data.artifacts[0] && data.artifacts[0].base64);
 
     if (!base64) {
       console.error('No base64 in response', data);
-      comboMessage.innerText = "⚠️ No image was returned. Try again.";
+      comboMessage.innerText = errorMessages[Math.floor(Math.random() * errorMessages.length)];
       return;
     }
 
@@ -92,7 +110,7 @@ async function showCombo() {
     comboMessage.innerText = "";
   } catch (e) {
     console.error('Fetch error', e);
-    comboMessage.innerText = "⚠️ Network hiccup — try again.";
+    comboMessage.innerText = errorMessages[Math.floor(Math.random() * errorMessages.length)];
   }
 }
 
