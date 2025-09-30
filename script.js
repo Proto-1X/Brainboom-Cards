@@ -1,5 +1,5 @@
 // front-end selection state
-const selections = { animal: null, bodyparts: null, clothes: null };
+const selections = { animal: null, bodyparts: [], clothes: null };
 
 // initial task instructions
 const instructions = [
@@ -36,30 +36,45 @@ function selectCard(el) {
   const category = categoryEl.dataset.category;
   const value = el.dataset.value;
 
-  // remove selected class from other cards in same category
-  categoryEl.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  if (category === "bodyparts") {
+    // allow multiple selection for bodyparts
+    el.classList.toggle("selected");
 
-  // mark this selected
-  el.classList.add('selected');
-  selections[category] = value;
+    if (el.classList.contains("selected")) {
+      // add to array if selected
+      if (!selections.bodyparts.includes(value)) {
+        selections.bodyparts.push(value);
+      }
+    } else {
+      // remove from array if deselected
+      selections.bodyparts = selections.bodyparts.filter(v => v !== value);
+    }
+  } else {
+    // single selection for animal & clothes
+    categoryEl.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+    el.classList.add("selected");
+    selections[category] = value;
+  }
 
-  // once we have all three selections, generate image
-  if (selections.animal && selections.bodyparts && selections.clothes) {
+  // once we have selections in all categories, generate image
+  if (selections.animal && selections.bodyparts.length > 0 && selections.clothes) {
     showCombo();
   }
 }
 
 function clearSelections() {
-  document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
-  selections.animal = selections.bodyparts = selections.clothes = null;
-  document.getElementById('comboImage').style.display = 'none';
-  document.getElementById('comboMessage').innerText = 'Select one card from each category to generate an image.';
+  document.querySelectorAll(".card.selected").forEach(c => c.classList.remove("selected"));
+  selections.animal = null;
+  selections.bodyparts = [];
+  selections.clothes = null;
+  document.getElementById("comboImage").style.display = "none";
+  document.getElementById("comboMessage").innerText = "Select one card from each category to generate an image.";
 }
 
 // random instruction
 function newInstruction() {
   const i = Math.floor(Math.random() * instructions.length);
-  document.getElementById('instruction').innerText = instructions[i];
+  document.getElementById("instruction").innerText = instructions[i];
 }
 
 // --- IMAGE GENERATION (call backend) ---
@@ -67,43 +82,30 @@ const VERCEL_BACKEND_URL = "https://brainboom-cards.vercel.app";
 
 async function showCombo() {
   // add random number 1–5 only for bodyparts
-  const randomNum = Math.floor(Math.random() * 5) + 1;
+  const bodypartsWithNums = selections.bodyparts.map(bp => {
+    const num = Math.floor(Math.random() * 5) + 1;
+    return `${num} ${bp}`;
+  }).join(", ");
 
-  // pluralize bodypart if needed
-  let bodypartWord = selections.bodyparts;
-  if (randomNum > 1 && !bodypartWord.endsWith("s")) {
-    bodypartWord += "s";
-  }
+  const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animal} with ${bodypartsWithNums} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
 
-  const bodypartWithNum = `${randomNum} ${bodypartWord}`;
-
-  // improved prompt
-  const prompt = `A friendly, colorful, child-friendly cartoon illustration of a ${selections.animal}.
-The character must clearly have exactly ${bodypartWithNum}. 
-If the body part is "head", draw exactly ${randomNum} heads on the character.
-If the body part is "arm", draw exactly ${randomNum} arms, clearly visible.
-If the body part is "leg", draw exactly ${randomNum} legs, clearly visible.
-Make the number of body parts very obvious in the drawing.
-The character is also wearing a ${selections.clothes}.
-Use a clean background, bright colors, and a fun cartoon style, suitable for primary school children.`;
-
-  const comboImage = document.getElementById('comboImage');
-  const comboMessage = document.getElementById('comboMessage');
+  const comboImage = document.getElementById("comboImage");
+  const comboMessage = document.getElementById("comboMessage");
 
   // fun loading message
   comboMessage.innerText = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
-  comboImage.style.display = 'none';
+  comboImage.style.display = "none";
 
   try {
     const resp = await fetch(`${VERCEL_BACKEND_URL}/api/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt })
     });
 
     if (!resp.ok) {
       const err = await resp.text();
-      console.error('Backend error:', err);
+      console.error("Backend error:", err);
       comboMessage.innerText = errorMessages[Math.floor(Math.random() * errorMessages.length)];
       return;
     }
@@ -111,7 +113,7 @@ Use a clean background, bright colors, and a fun cartoon style, suitable for pri
     const data = await resp.json();
 
     if (data.error) {
-      console.error('API returned error', data);
+      console.error("API returned error", data);
       comboMessage.innerText = errorMessages[Math.floor(Math.random() * errorMessages.length)];
       return;
     }
@@ -119,16 +121,16 @@ Use a clean background, bright colors, and a fun cartoon style, suitable for pri
     const base64 = data.imageBase64 || data.base64 || (data.artifacts && data.artifacts[0] && data.artifacts[0].base64);
 
     if (!base64) {
-      console.error('No base64 in response', data);
+      console.error("No base64 in response", data);
       comboMessage.innerText = errorMessages[Math.floor(Math.random() * errorMessages.length)];
       return;
     }
 
     comboImage.src = "data:image/png;base64," + base64;
-    comboImage.style.display = 'block';
+    comboImage.style.display = "block";
     comboMessage.innerText = "";
   } catch (e) {
-    console.error('Fetch error', e);
+    console.error("Fetch error", e);
     comboMessage.innerText = errorMessages[Math.floor(Math.random() * errorMessages.length)];
   }
 }
