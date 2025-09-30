@@ -88,7 +88,7 @@ const VERCEL_BACKEND_URL = "https://brainboom-cards.vercel.app";
 async function showCombo() {
   // random numbers for each bodypart
   const bodypartsWithNums = selections.bodyparts.map(bp => {
-    const num = Math.floor(Math.random() * 5) + 1;
+    const num = Math.floor(Math.random() * 3) + 3; // ensures 3–5
     return `${num} ${bp}`;
   }).join(" and ");
 
