@@ -86,9 +86,9 @@ async function showCombo() {
     A friendly, colorful, child-friendly cartoon illustration.
     The main subject is a ${selections.animal}.
     It has EXACTLY ${randomNum} ${bodypartList}, no more, no less.
-    Each ${selections.bodyparts} must be clearly separated and visible.
+    Each ${selections.bodyparts} must be clearly visible on the animal.
     The ${selections.animal} is wearing a ${selections.clothes}.
-    Use bright colors, clean background, suitable for primary school children.
+    Use exact illustration, clean background, an animal with weird characterisitics mentioned.
     Make the number of ${selections.bodyparts} obvious so they can be counted.
   `;
 
