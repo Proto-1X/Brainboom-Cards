@@ -83,7 +83,7 @@ async function showCombo() {
 
   // improved prompt for explicit numbers
   const prompt = `
-    A friendly, colorful, child-friendly cartoon illustration.
+    An animal that is consist of multiple bodyparts like a brainrot.
     The main subject is a ${selections.animal}.
     It has EXACTLY ${randomNum} ${bodypartList}, no more, no less.
     Each ${selections.bodyparts} must be clearly visible on the animal.
