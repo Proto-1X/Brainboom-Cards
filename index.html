@@ -1,100 +1,193 @@
-<!-- ANIMALS -->
-<div class="category" data-category="animal">
-  <h2>Animals</h2>
-  <div class="cards">
-    <div class="card" data-value="cat" onclick="selectCard(this)">
-      <img src="imagesbbx/cat.jpg" alt="Cat"><span>Cat</span>
-    </div>
-    <div class="card" data-value="dog" onclick="selectCard(this)">
-      <img src="imagesbbx/dog.jpg" alt="Dog"><span>Dog</span>
-    </div>
-    <div class="card" data-value="tiger" onclick="selectCard(this)">
-      <img src="imagesbbx/tiger.jpg" alt="Tiger"><span>Tiger</span>
-    </div>
-    <div class="card" data-value="lion" onclick="selectCard(this)">
-      <img src="imagesbbx/lion.jpg" alt="Lion"><span>Lion</span>
-    </div>
-    <div class="card" data-value="elephant" onclick="selectCard(this)">
-      <img src="imagesbbx/elephant.jpg" alt="Elephant"><span>Elephant</span>
-    </div>
-    <div class="card" data-value="bird" onclick="selectCard(this)">
-      <img src="imagesbbx/bird.jpg" alt="Bird"><span>Bird</span>
-    </div>
-    <div class="card" data-value="lizard" onclick="selectCard(this)">
-      <img src="imagesbbx/lizard.jpg" alt="Lizard"><span>Lizard</span>
-    </div>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Brainboom X</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Brainboom X</h1>
+    <p class="tagline">Where brain meets creativity</p>
+  </header>
 
-<!-- BODYPARTS -->
-<div class="category" data-category="bodyparts">
-  <h2>Bodyparts</h2>
-  <div class="cards">
-    <!-- Human body parts -->
-    <div class="card" data-value="head" onclick="selectCard(this)">
-      <img src="imagesbbx/head.jpg" alt="Head"><span>Head</span>
-    </div>
-    <div class="card" data-value="arm" onclick="selectCard(this)">
-      <img src="imagesbbx/arm.jpg" alt="Arm"><span>Arm</span>
-    </div>
-    <div class="card" data-value="fingers" onclick="selectCard(this)">
-      <img src="imagesbbx/fingers.jpg" alt="Fingers"><span>Fingers</span>
-    </div>
-    <div class="card" data-value="hand" onclick="selectCard(this)">
-      <img src="imagesbbx/hand.jpg" alt="Hand"><span>Hand</span>
-    </div>
-    <div class="card" data-value="knee" onclick="selectCard(this)">
-      <img src="imagesbbx/knee.jpg" alt="Knee"><span>Knee</span>
-    </div>
-    <div class="card" data-value="legs" onclick="selectCard(this)">
-      <img src="imagesbbx/legs.jpg" alt="Legs"><span>Legs</span>
-    </div>
-    <div class="card" data-value="toes" onclick="selectCard(this)">
-      <img src="imagesbbx/toes.jpg" alt="Toes"><span>Toes</span>
-    </div>
-    <div class="card" data-value="foot" onclick="selectCard(this)">
-      <img src="imagesbbx/foot.jpg" alt="Foot"><span>Foot</span>
-    </div>
+  <main>
+    <section class="left-column">
+      
+      <!-- ANIMALS (whole animals only) -->
+      <div class="category" data-category="animal">
+        <h2>Animals</h2>
+        <div class="cards">
+          <div class="card" data-value="cat" onclick="selectCard(this)">
+            <img src="imagesbbx/cat.jpg" alt="Cat"><span>Cat</span>
+          </div>
+          <div class="card" data-value="dog" onclick="selectCard(this)">
+            <img src="imagesbbx/dog.jpg" alt="Dog"><span>Dog</span>
+          </div>
+          <div class="card" data-value="tiger" onclick="selectCard(this)">
+            <img src="imagesbbx/tiger.jpg" alt="Tiger"><span>Tiger</span>
+          </div>
+          <div class="card" data-value="lion" onclick="selectCard(this)">
+            <img src="imagesbbx/lion.jpg" alt="Lion"><span>Lion</span>
+          </div>
+          <div class="card" data-value="elephant" onclick="selectCard(this)">
+            <img src="imagesbbx/elephant.jpg" alt="Elephant"><span>Elephant</span>
+          </div>
+          <div class="card" data-value="bird" onclick="selectCard(this)">
+            <img src="imagesbbx/bird.jpg" alt="Bird"><span>Bird</span>
+          </div>
+          <div class="card" data-value="lizard" onclick="selectCard(this)">
+            <img src="imagesbbx/lizard.jpg" alt="Lizard"><span>Lizard</span>
+          </div>
+        </div>
+      </div>
 
-    <!-- Animal body parts -->
-    <div class="card" data-value="cat's head" onclick="selectCard(this)">
-      <img src="imagesbbx/cats-head.jpg" alt="Cat's head"><span>Cat's head</span>
-    </div>
-    <div class="card" data-value="tiger's head" onclick="selectCard(this)">
-      <img src="imagesbbx/tigers-head.jpg" alt="Tiger's head"><span>Tiger's head</span>
-    </div>
-    <div class="card" data-value="tiger's tail" onclick="selectCard(this)">
-      <img src="imagesbbx/tigers-tail.jpg" alt="Tiger's tail"><span>Tiger's tail</span>
-    </div>
-    <div class="card" data-value="lion's head" onclick="selectCard(this)">
-      <img src="imagesbbx/lions-head.jpg" alt="Lion's head"><span>Lion's head</span>
-    </div>
-    <div class="card" data-value="lion's tail" onclick="selectCard(this)">
-      <img src="imagesbbx/lions-tail.jpg" alt="Lion's tail"><span>Lion's tail</span>
-    </div>
-    <div class="card" data-value="elephant's head" onclick="selectCard(this)">
-      <img src="imagesbbx/elephants-head.jpg" alt="Elephant's head"><span>Elephant's head</span>
-    </div>
-    <div class="card" data-value="elephant's trunk" onclick="selectCard(this)">
-      <img src="imagesbbx/elephants-trunk.jpg" alt="Elephant's trunk"><span>Elephant's trunk</span>
-    </div>
-    <div class="card" data-value="cat's claws" onclick="selectCard(this)">
-      <img src="imagesbbx/cats-claws.jpg" alt="Cat's claws"><span>Cat's claws</span>
-    </div>
-    <div class="card" data-value="dog ears" onclick="selectCard(this)">
-      <img src="imagesbbx/dog-ears.jpg" alt="Dog ears"><span>Dog ears</span>
-    </div>
-    <div class="card" data-value="lizard's tail" onclick="selectCard(this)">
-      <img src="imagesbbx/lizards-tail.jpg" alt="Lizard's tail"><span>Lizard's tail</span>
-    </div>
-    <div class="card" data-value="bird's beak" onclick="selectCard(this)">
-      <img src="imagesbbx/birds-beak.jpg" alt="Bird's beak"><span>Bird's beak</span>
-    </div>
-    <div class="card" data-value="bird's wings" onclick="selectCard(this)">
-      <img src="imagesbbx/birds-wings.jpg" alt="Bird's wings"><span>Bird's wings</span>
-    </div>
-    <div class="card" data-value="lion's paw" onclick="selectCard(this)">
-      <img src="imagesbbx/lions-paw.jpg" alt="Lion's paw"><span>Lion's paw</span>
-    </div>
-  </div>
-</div>
+      <!-- BODYPARTS (human + animal body parts; multi-select) -->
+      <div class="category" data-category="bodyparts">
+        <h2>Bodyparts</h2>
+        <div class="cards">
+          <!-- Human body parts -->
+          <div class="card" data-value="head" onclick="selectCard(this)">
+            <img src="imagesbbx/head.jpg" alt="Head"><span>Head</span>
+          </div>
+          <div class="card" data-value="arm" onclick="selectCard(this)">
+            <img src="imagesbbx/arm.jpg" alt="Arm"><span>Arm</span>
+          </div>
+          <div class="card" data-value="fingers" onclick="selectCard(this)">
+            <img src="imagesbbx/fingers.jpg" alt="Fingers"><span>Fingers</span>
+          </div>
+          <div class="card" data-value="hand" onclick="selectCard(this)">
+            <img src="imagesbbx/hand.jpg" alt="Hand"><span>Hand</span>
+          </div>
+          <div class="card" data-value="knee" onclick="selectCard(this)">
+            <img src="imagesbbx/knee.jpg" alt="Knee"><span>Knee</span>
+          </div>
+          <div class="card" data-value="legs" onclick="selectCard(this)">
+            <img src="imagesbbx/legs.jpg" alt="Legs"><span>Legs</span>
+          </div>
+          <div class="card" data-value="toes" onclick="selectCard(this)">
+            <img src="imagesbbx/toes.jpg" alt="Toes"><span>Toes</span>
+          </div>
+          <div class="card" data-value="foot" onclick="selectCard(this)">
+            <img src="imagesbbx/foot.jpg" alt="Foot"><span>Foot</span>
+          </div>
+
+          <!-- Animal body parts -->
+          <div class="card" data-value="cats head" onclick="selectCard(this)">
+            <img src="imagesbbx/cats-head.jpg" alt="Cat's head"><span>Cat's head</span>
+          </div>
+          <div class="card" data-value="tigers head" onclick="selectCard(this)">
+            <img src="imagesbbx/tigers-head.jpg" alt="Tiger's head"><span>Tiger's head</span>
+          </div>
+          <div class="card" data-value="tigers tail" onclick="selectCard(this)">
+            <img src="imagesbbx/tigers-tail.jpg" alt="Tiger's tail"><span>Tiger's tail</span>
+          </div>
+          <div class="card" data-value="lions head" onclick="selectCard(this)">
+            <img src="imagesbbx/lions-head.jpg" alt="Lion's head"><span>Lion's head</span>
+          </div>
+          <div class="card" data-value="lions tail" onclick="selectCard(this)">
+            <img src="imagesbbx/lions-tail.jpg" alt="Lion's tail"><span>Lion's tail</span>
+          </div>
+          <div class="card" data-value="elephants head" onclick="selectCard(this)">
+            <img src="imagesbbx/elephants-head.jpg" alt="Elephant's head"><span>Elephant's head</span>
+          </div>
+          <div class="card" data-value="elephants trunk" onclick="selectCard(this)">
+            <img src="imagesbbx/elephants-trunk.jpg" alt="Elephant's trunk"><span>Elephant's trunk</span>
+          </div>
+          <div class="card" data-value="cats claws" onclick="selectCard(this)">
+            <img src="imagesbbx/cats-claws.jpg" alt="Cat's claws"><span>Cat's claws</span>
+          </div>
+          <div class="card" data-value="dog ears" onclick="selectCard(this)">
+            <img src="imagesbbx/dog-ears.jpg" alt="Dog ears"><span>Dog ears</span>
+          </div>
+          <div class="card" data-value="lizards tail" onclick="selectCard(this)">
+            <img src="imagesbbx/lizards-tail.jpg" alt="Lizard's tail"><span>Lizard's tail</span>
+          </div>
+          <div class="card" data-value="birds beak" onclick="selectCard(this)">
+            <img src="imagesbbx/birds-beak.jpg" alt="Bird's beak"><span>Bird's beak</span>
+          </div>
+          <div class="card" data-value="birds wings" onclick="selectCard(this)">
+            <img src="imagesbbx/birds-wings.jpg" alt="Bird's wings"><span>Bird's wings</span>
+          </div>
+          <div class="card" data-value="lions paw" onclick="selectCard(this)">
+            <img src="imagesbbx/lions-paw.jpg" alt="Lion's paw"><span>Lion's paw</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLOTHES -->
+      <div class="category" data-category="clothes">
+        <h2>Clothes</h2>
+        <div class="cards">
+          <div class="card" data-value="jeans" onclick="selectCard(this)">
+            <img src="imagesbbx/jeans.jpg" alt="Jeans"><span>Jeans</span>
+          </div>
+          <div class="card" data-value="sweater" onclick="selectCard(this)">
+            <img src="imagesbbx/sweater.jpg" alt="Sweater"><span>Sweater</span>
+          </div>
+          <div class="card" data-value="jacket" onclick="selectCard(this)">
+            <img src="imagesbbx/jacket.jpg" alt="Jacket"><span>Jacket</span>
+          </div>
+          <div class="card" data-value="shirt" onclick="selectCard(this)">
+            <img src="imagesbbx/shirt.jpg" alt="Shirt"><span>Shirt</span>
+          </div>
+          <div class="card" data-value="dress" onclick="selectCard(this)">
+            <img src="imagesbbx/dress.jpg" alt="Dress"><span>Dress</span>
+          </div>
+          <div class="card" data-value="hat" onclick="selectCard(this)">
+            <img src="imagesbbx/hat.jpg" alt="Hat"><span>Hat</span>
+          </div>
+          <div class="card" data-value="skirt" onclick="selectCard(this)">
+            <img src="imagesbbx/skirt.jpg" alt="Skirt"><span>Skirt</span>
+          </div>
+          <div class="card" data-value="shorts" onclick="selectCard(this)">
+            <img src="imagesbbx/shorts.jpg" alt="Shorts"><span>Shorts</span>
+          </div>
+          <div class="card" data-value="cap" onclick="selectCard(this)">
+            <img src="imagesbbx/cap.jpg" alt="Cap"><span>Cap</span>
+          </div>
+          <div class="card" data-value="shoes" onclick="selectCard(this)">
+            <img src="imagesbbx/shoes.jpg" alt="Shoes"><span>Shoes</span>
+          </div>
+          <div class="card" data-value="socks" onclick="selectCard(this)">
+            <img src="imagesbbx/socks.jpg" alt="Socks"><span>Socks</span>
+          </div>
+          <div class="card" data-value="trainers" onclick="selectCard(this)">
+            <img src="imagesbbx/trainers.jpg" alt="Trainers"><span>Trainers</span>
+          </div>
+          <div class="card" data-value="trousers" onclick="selectCard(this)">
+            <img src="imagesbbx/trousers.jpg" alt="Trousers"><span>Trousers</span>
+          </div>
+          <div class="card" data-value="helmet" onclick="selectCard(this)">
+            <img src="imagesbbx/helmet.jpg" alt="Helmet"><span>Helmet</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <section class="right-column">
+      <div class="whiteboard">
+        <h2>Your Whiteboard</h2>
+        <p id="instruction">Write a simple sentence using one of the words.</p>
+        <textarea id="sentence" placeholder="Example: The lion wears a hat."></textarea>
+        <div class="controls">
+          <button onclick="newInstruction()">🎲 New task</button>
+          <button onclick="clearSelections()">✖ Reset selections</button>
+        </div>
+      </div>
+
+      <div class="combo-result">
+        <h3>Your Combo Image</h3>
+        <div id="comboArea">
+          <img id="comboImage" src="" alt="Combo result" style="display:none; max-width:100%;">
+          <p id="comboMessage" class="fun-message">Select one card from each category to generate an image.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
