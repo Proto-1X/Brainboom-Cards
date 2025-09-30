@@ -90,6 +90,7 @@ async function showCombo() {
     The ${selections.animal} is wearing a ${selections.clothes}.
     Use exact illustration, clean background, an animal with weird characterisitics mentioned.
     Make the number of ${selections.bodyparts} obvious so they can be counted.
+    The animal generated must show full bodyparts as selected.
   `;
 
   const comboImage = document.getElementById('comboImage');
