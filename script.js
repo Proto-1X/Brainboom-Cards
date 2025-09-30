@@ -66,7 +66,11 @@ function newInstruction() {
 const VERCEL_BACKEND_URL = "https://brainboom-cards.vercel.app";
 
 async function showCombo() {
-  const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animal} with a ${selections.bodyparts} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
+  // add random number 1–5 only for bodyparts
+  const randomNum = Math.floor(Math.random() * 5) + 1;
+  const bodypartWithNum = `${randomNum} ${selections.bodyparts}`;
+
+  const prompt = `A friendly, colorful, weird combo illustration of a ${selections.animal} with ${bodypartWithNum} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
 
   const comboImage = document.getElementById('comboImage');
   const comboMessage = document.getElementById('comboMessage');
@@ -76,7 +80,7 @@ async function showCombo() {
   comboImage.style.display = 'none';
 
   try {
-    const resp = await fetch(`https://brainboom-cards.vercel.app/api/generate`, {
+    const resp = await fetch(`${VERCEL_BACKEND_URL}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt })
