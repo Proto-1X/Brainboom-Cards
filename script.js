@@ -137,8 +137,14 @@ async function showCombo() {
   const randomNum = Math.floor(Math.random() * 5) + 1;
   const bodypartWithNum = `${randomNum} ${selections.bodyparts}`;
 
-  const prompt = `A friendly, colorful, child-friendly illustration of a ${selections.animal} with ${bodypartWithNum} wearing a ${selections.clothes}. Clean background, bright colors, cartoon style, suitable for primary school children.`;
-
+  const prompt = `A bright, child-friendly cartoon illustration of a ${selections.animal}. 
+The character must clearly have exactly ${randomNum} ${selections.bodyparts}. 
+If the body part is "head", draw exactly ${randomNum} heads on the character. 
+If it is "arm", draw exactly ${randomNum} arms, clearly visible. 
+If it is "leg", draw exactly ${randomNum} legs. 
+Make the number of body parts very obvious in the drawing. 
+The character is also wearing a ${selections.clothes}. 
+Clean background, bright colors, cartoon style, suitable for primary school children.`;
   const comboImage = document.getElementById('comboImage');
   const comboMessage = document.getElementById('comboMessage');
 
