@@ -3,11 +3,11 @@ const selections = { animal: null, bodyparts: [], clothes: null };
 
 // initial task instructions
 const instructions = [
-  "Write a simple sentence using one of the words.",
+  "Write a sentence start with: This is my… (for one item) or These are my… (for more than one item). Then write the colour and the clothing item.",
   "Make a sentence with an adjective.",
-  "Create a sentence with a preposition.",
+  "Write a sentence start with: I can… (for something you can do) or I can’t… (for something you cannot do). Then write the action word.",
   "Write a sentence using two words from the cards.",
-  "Make a question with one of the words."
+  "Write a sentence start with: This is my… (for one item) or These are my… (for more than one item). Then write the colour and the clothing item."
 ];
 
 // fun catchphrases for loading
