@@ -92,7 +92,7 @@ async function showCombo() {
     return `${num} ${bp}`;
   }).join(" and ");
 
-  const prompt = `A clear, detailed infographic-style illustration showing a ${selections.animal} with ${bodypartsWithNums}, wearing a ${selections.clothes}. Professional, minimal color palette, clean background, well-labeled and easy to understand. Not cartoonish, but informative and realistic.`;
+  const prompt = `A clear, detailed infographic-style illustration showing a ${selections.animal} with ${bodypartsWithNums}, wearing a ${selections.clothes}. Funny, minimal color palette, clean background, well-labeled and easy to understand. Not cartoonish, but informative and realistic.`;
 
   const comboImage = document.getElementById('comboImage');
   const comboMessage = document.getElementById('comboMessage');
