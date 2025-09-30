@@ -40,8 +40,45 @@ main { display:flex; gap:20px; padding:18px; flex-wrap:wrap; align-items:flex-st
 #instruction { margin:0 0 8px 0; font-weight:600; color:#444; }
 textarea { width:100%; height:110px; padding:10px; border-radius:8px; border:2px solid #ececec; resize:vertical; font-size:1rem; }
 .controls { display:flex; gap:8px; margin-top:8px; }
-.controls button { padding:8px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; cursor:pointer; }
-.controls button:nth-child(2) { background:#ef5350; }
+
+/* buttons */
+.controls button {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* 🎲 New task (blue / accent) */
+.controls button:nth-child(1) {
+  background: var(--accent);
+}
+.controls button:nth-child(1):hover {
+  background: #357ab8; /* darker blue */
+  transform: translateY(-2px);
+}
+.controls button:nth-child(1):active {
+  background: #2c6394;
+  transform: translateY(0);
+}
+
+/* ✖ Reset (red) */
+.controls button:nth-child(2) {
+  background: #ef5350;
+}
+.controls button:nth-child(2):hover {
+  background: #d32f2f; /* darker red */
+  transform: translateY(-2px);
+}
+.controls button:nth-child(2):active {
+  background: #b71c1c;
+  transform: translateY(0);
+}
 
 .combo-result h3 { margin:0; color:var(--accent); }
 #comboArea { text-align:center; margin-top:10px; min-height:160px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
